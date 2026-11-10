@@ -1,8 +1,8 @@
 name: release
 
 on:
-  push:
-    tags: ["v*"]
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p dist
-          VERSION="${GITHUB_REF_NAME}"
+          VERSION="${{ github.event.release.tag_name }}"
           build() {
             GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build -trimpath \
               -ldflags "-X main.version=${VERSION}" -o "dist/$3" .
@@ -32,4 +32,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
-          generate_release_notes: true
+          tag_name: ${{ github.event.release.tag_name }}

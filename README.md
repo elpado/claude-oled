@@ -138,7 +138,7 @@ go build -o claude-oled .
 GOOS=windows GOARCH=amd64 go build -o claude-oled.exe .
 ```
 
-Releases are built by GitHub Actions when a `v*` tag is pushed.
+Release binaries are built by GitHub Actions and attached automatically when a GitHub release is published.
 
 ## Disclaimer
 
